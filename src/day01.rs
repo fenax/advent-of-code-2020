@@ -1,20 +1,74 @@
+use super::*;
+
+pub struct Part1{
+    data: Vec<i64>,
+    solution: Option<(usize,usize)>,
+}
+
+impl std::fmt::Display for Part1{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self.solution{
+            Some((i,j)) => {
+                let di = self.data[i];
+                let dj = self.data[j];
+                write!(f, "elements [{}]{} and [{}]{} -> {}", i, di, j, dj, di * dj)
+            }
+            None => {
+                write!(f, "no solution found")
+            }
+        }
+    }
+}
+
+impl puzzles::Puzzle<i64> for Part1{
+    fn new(input:&Vec<i64>)->Self{
+        let mut v = input.clone();
+        v.sort();
+        Part1{data:v,solution:None}
+    }
+    fn resolve(&mut self){
+        self.solution = find_with_sum_exclude(&self.data,2020,self.data.len(),0);
+    }
+}
+
+pub struct Part2{
+    data: Vec<i64>,
+    solution: Option<(usize,usize,usize)>,
+}
+
+impl std::fmt::Display for Part2{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self.solution{
+            Some((i,j,k)) => {
+                let di = self.data[i];
+                let dj = self.data[j];
+                let dk = self.data[k];
+                write!(f, "elements [{}]{}, [{}]{} and [{}]{} -> {}", i, di, j, dj, k, dk, di * dj * dk)
+            }
+            None => {
+                write!(f, "no solution found")
+            }
+        }
+    }
+}
+
+impl puzzles::Puzzle<i64> for Part2{
+    fn new(input:&Vec<i64>)->Self{
+        let mut v = input.clone();
+        v.sort();
+        Part2{data:v,solution:None}
+    }
+    fn resolve(&mut self){
+        self.solution = find_three_with_sum(&self.data, 2020);
+    }
+}
+
+
 pub fn find_with_sum_exclude(input:&Vec<i64>,target:i64,exclusion_start:usize,exclusion_stop:usize)->Option<(usize,usize)>{
         let mut i = 0; let mut j = input.len()-1;
         while i<j && i<exclusion_start && exclusion_stop<j{
             let sum = input[i] + input[j];
-            if sum == target {println!("elements [{}]{} and [{}]{} -> {}",i,input[i],j,input[j],input[i]*input[j]); return Some((i,j))}
-            else if sum > target {j = j-1; }
-            else if sum < target {i = i+1;}
-        }
-        None
-}
-
-
-pub fn find_with_sum(input:&Vec<i64>,target:i64)->Option<(usize,usize)>{
-        let mut i = 0; let mut j = input.len()-1;
-        while i<j{
-            let sum = input[i] + input[j];
-            if sum == target {println!("elements [{}]{} and [{}]{} -> {}",i,input[i],j,input[j],input[i]*input[j]); return Some((i,j))}
+            if sum == target {return Some((i,j))}
             else if sum > target {j = j-1; }
             else if sum < target {i = i+1;}
         }
@@ -28,7 +82,6 @@ pub fn find_three_with_sum(input:&Vec<i64>,target:i64)->Option<(usize,usize,usiz
     let mut dec = true; //first turn decrement k, next increment l, then start again
     while k>1 || l<input.len()-2{
         if let Some((i,j)) = find_with_sum_exclude(input,target-input[*cur],k,l){
-            println!("elements [{}]{} , [{}]{} and [{}]{} -> {}",i,input[i],j,input[j],*cur,input[*cur],input[i]*input[j]*input[*cur]);
             return Some((i,j,*cur))
         }else{
             if (dec && k>2) || l>= input.len()-2{
