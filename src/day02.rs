@@ -2,13 +2,14 @@ use super::*;
 use super::puzzles::Data;
 
 pub struct Input{
-    data: Vec<i64>
+    data: Vec<(u8,u8,char,String)>
 }
 
 impl puzzles::Data<i64> for Input{
     fn new(input:&str) -> Input{
-        let d = parser::one_int_per_line(&input);
-        Input{ data : d}
+        let re = Regex::new(r"(\d{1-2})-(\d{1-2})-([a-z]): ([a-z]*)").unwrap();
+        re.captures_iter(input).map(|x| (x[1],x[2],x[3],x[4])).collect();
+        Input{ data : re.captures_iter(input).map(|x| (x[1],x[2],x[3],x[4])).collect()}
     }
     fn get_data(&self) -> &Vec<i64>{
         &self.data
@@ -16,7 +17,7 @@ impl puzzles::Data<i64> for Input{
 }
 
 pub struct Part1{
-    data: Vec<i64>,
+    data: Input,
     solution: Option<(usize,usize)>,
 }
 
@@ -34,6 +35,12 @@ impl std::fmt::Display for Part1{
         }
     }
 }
+ 
+fn is_valid(data:(u8,u8,char,String)) ->bool{
+    let (min, max, c, src) = data;
+
+}
+
 
 impl puzzles::Puzzle<Input> for Part1{
     fn new(input:&Input)->Self{
@@ -78,37 +85,3 @@ impl puzzles::Puzzle<Input> for Part2{
     }
 }
 
-
-pub fn find_with_sum_exclude(input:&Vec<i64>,target:i64,exclusion_start:usize,exclusion_stop:usize)->Option<(usize,usize)>{
-        let mut i = 0; let mut j = input.len()-1;
-        while i<j && i<exclusion_start && exclusion_stop<j{
-            let sum = input[i] + input[j];
-            if sum == target {return Some((i,j))}
-            else if sum > target {j = j-1; }
-            else if sum < target {i = i+1;}
-        }
-        None
-}
-
-pub fn find_three_with_sum(input:&Vec<i64>,target:i64)->Option<(usize,usize,usize)>{
-    let mut k = input.iter().position(|x| *x >= target/3).unwrap_or(input.len()-2);
-    let mut l = k;
-    let mut cur = &k;
-    let mut dec = true; //first turn decrement k, next increment l, then start again
-    while k>1 || l<input.len()-2{
-        if let Some((i,j)) = find_with_sum_exclude(input,target-input[*cur],k,l){
-            return Some((i,j,*cur))
-        }else{
-            if (dec && k>2) || l>= input.len()-2{
-                k = k-1;
-                cur = &k;
-                dec = false;
-            }else{
-                l = l+1;
-                cur = &l;
-                dec = true;
-            }
-        }
-    }
-    None
-}
