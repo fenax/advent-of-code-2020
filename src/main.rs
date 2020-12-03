@@ -3,6 +3,7 @@ extern crate regex;
 mod parser;
 mod day01;
 mod day02;
+mod day03;
 mod puzzles;
 
 use std::fs::read_to_string;
@@ -44,5 +45,17 @@ fn main() -> Result<(), std::io::Error> {
         timed_run(||{part2.resolve();});
         println!("{}",part2);       
     }
-    Ok(())
+    {//Day 03
+        let input = day03::Input::new(&read_to_string("day03.input")?);
+        let mut part1 = day03::Part1::new(&input);
+        let mut part2 = day03::Part2::new(&input);
+
+        println!("Day 03 part 1");
+        timed_run(||{part1.resolve();});
+        println!("{}",part1);
+
+        println!("Day 03 part 2");
+        timed_run(||{part2.resolve();});
+        println!("{}",part2);         
+    }    Ok(())
 }

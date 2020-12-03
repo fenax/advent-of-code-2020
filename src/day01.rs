@@ -35,7 +35,7 @@ impl std::fmt::Display for Part1{
     }
 }
 
-impl puzzles::Puzzle<Input> for Part1{
+impl puzzles::Puzzle<'_,Input> for Part1{
     fn new(input:&Input)->Self{
         let mut v = input.get_data().clone();
         v.sort();
@@ -67,7 +67,7 @@ impl std::fmt::Display for Part2{
     }
 }
 
-impl puzzles::Puzzle<Input> for Part2{
+impl puzzles::Puzzle<'_, Input> for Part2{
     fn new(input:&Input)->Self{
         let mut v = input.get_data().clone();
         v.sort();

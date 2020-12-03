@@ -5,8 +5,8 @@ pub trait Data<T>{
     fn get_data(&self) -> &Vec<T>;
 }
 
-pub trait Puzzle<T>: Display
+pub trait Puzzle<'r,T>: Display
 {
-    fn new(input:&T) -> Self;
+    fn new(input:&'r T) -> Self;
     fn resolve(&mut self);
 }

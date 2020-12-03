@@ -71,7 +71,7 @@ fn is_valid_2(data:&(u8,u8,char,String)) ->bool{
     (a==*c || b == *c) && a!=b 
 }
 
-impl puzzles::Puzzle<Input> for Part1{
+impl puzzles::Puzzle<'_,Input> for Part1{
     fn new(input:&Input)->Self{
         let v = input.clone();
         Part1{data:v,solution:None}
@@ -87,7 +87,7 @@ impl puzzles::Puzzle<Input> for Part1{
     }
 }
 
-impl puzzles::Puzzle<Input> for Part2{
+impl puzzles::Puzzle<'_,Input> for Part2{
     fn new(input:&Input)->Self{
         let v = input.clone();
         Part2{data:v,solution:None}
