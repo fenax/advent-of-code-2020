@@ -109,7 +109,7 @@ where 'a:'b
             , re_hcl.captures_iter(&full).any(|_| true)
             , re_ecl.captures_iter(&full).any(|x| eye_colors.iter().any(|&y| x[1]==*y))
             , re_pid.captures_iter(&full).any(|_| true)];
-            println!("{}-{:?}",full,res);
+//            println!("{}-{:?}",full,res);
             if res.iter().all(|x|*x)
             {
                 count = count + 1;
