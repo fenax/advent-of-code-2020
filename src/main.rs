@@ -17,8 +17,32 @@ fn timed_run<F>(mut f: F) where F: FnMut(){
     println!("Timing : {:?}", duration);
 }
 
+fn one_day<D,X,Y,T>(file:&str, title:&str) -> Result<(), std::io::Error>
+where 
+    D: puzzles::Data<T>,
+    for<'a>  X: puzzles::Puzzle<'a,D>,
+    for<'b>  Y: puzzles::Puzzle<'b,D> {
+    let input = D::new(&read_to_string(file)?);
+    {   
+    let mut part1 = X::new(&input);
+    let mut part2 = Y::new(&input);
+
+    println!("{} part 1",title);
+    timed_run(||{part1.resolve();});
+    println!("{}",part1);
+
+    println!("{} part 2",title);
+    timed_run(||{part2.resolve();});
+    println!("{}",part2);
+    }    
+    Ok(())
+}
+
 fn main() -> Result<(), std::io::Error> {
-    {//Day 01
+ //   one_day::<day01::Input,day01::Part1,day01::Part2,_>("day01.input", "Day 01")?;
+ //   one_day::<day02::Input,day02::Part1,day02::Part2,_>("day02.input", "Day 02")?;
+//    one_day::<day03::Input,day03::Part1,day03::Part2,_>("day03.input", "Day 03")?;
+   {//Day 01
         let input = day01::Input::new(&read_to_string("day01.input")?);
         let mut part1 = day01::Part1::new(&input);
         let mut part2 = day01::Part2::new(&input);
@@ -49,13 +73,13 @@ fn main() -> Result<(), std::io::Error> {
         let input = day03::Input::new(&read_to_string("day03.input")?);
         let mut part1 = day03::Part1::new(&input);
         let mut part2 = day03::Part2::new(&input);
-
+//part2.learn();
         println!("Day 03 part 1");
         timed_run(||{part1.resolve();});
         println!("{}",part1);
 
         println!("Day 03 part 2");
         timed_run(||{part2.resolve();});
-        println!("{}",part2);         
+        println!("{}",part2);
     }    Ok(())
 }
