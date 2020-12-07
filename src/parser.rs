@@ -1,3 +1,9 @@
+pub fn one_string_per_line(input:& str) -> Vec<String>{
+    input.split('\n').map(str::trim)
+                     .filter(|x| !x.is_empty())
+                     .map(|x| x.to_string())
+                     .collect()
+}
 pub fn one_int_per_line(input:& str)->Vec<i64>{
     input.split('\n')
                      .map(str::trim)

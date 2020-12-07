@@ -50,8 +50,8 @@ impl<'a> std::fmt::Display for Part2<'a>{
     }
 }
 
-impl<'a,'b> puzzles::Puzzle<'a, Input> for Part1<'b>
-where 'a:'b
+impl<'a> puzzles::Puzzle<'a, Input> for Part1<'a>
+//where 'a:'b
 {
     fn new(input:&'a Input)->Self{
         Part1{data:input,solution:None}
@@ -60,6 +60,7 @@ where 'a:'b
         self.solution = Some(count_trees(self.data.get_data(), 3, 1));
     }
 }
+
 impl<'a,'b> puzzles::Puzzle<'a, Input> for Part2<'b>
 where 'a:'b
 {
