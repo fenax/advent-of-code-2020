@@ -42,7 +42,7 @@ impl puzzles::Puzzle<'_,Input> for Part1{
         Part1{data:v,solution:None}
     }
     fn resolve(&mut self){
-        self.solution = find_with_sum_exclude(&self.data,2020,self.data.len(),0);
+        self.solution = find_with_sum(&self.data,2020);
     }
 }
 
@@ -78,7 +78,9 @@ impl puzzles::Puzzle<'_, Input> for Part2{
     }
 }
 
-
+pub fn find_with_sum(input:&Vec<i64>,target:i64)->Option<(usize,usize)>{
+    find_with_sum_exclude(input,target,input.len(),0)
+}
 pub fn find_with_sum_exclude(input:&Vec<i64>,target:i64,exclusion_start:usize,exclusion_stop:usize)->Option<(usize,usize)>{
         let mut i = 0; let mut j = input.len()-1;
         while i<j && i<exclusion_start && exclusion_stop<j{
