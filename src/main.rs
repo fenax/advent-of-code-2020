@@ -7,6 +7,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day08;
+mod day09;
 mod puzzles;
 
 use std::fs::read_to_string;
@@ -191,7 +192,7 @@ fn main() -> Result<(), std::io::Error> {
         timed_run(||{part2.resolve();});
         println!("    {}",part2);
     }   
-      {//Day 05
+      {//Day 08
         println!("Day 08");
         let i_string = read_to_string("day08.input")?;
         let input =timed_run(||{day08::Input::new(&i_string)});
@@ -206,5 +207,21 @@ fn main() -> Result<(), std::io::Error> {
         println!(" part 2");
         timed_run(||{part2.resolve();});
         println!("    {}",part2);
-    }     Ok(())  
+    } 
+    {//Day 09
+        println!("Day 09");
+        let i_string = read_to_string("day09.input")?;
+        let input =timed_run(||{day09::Input::new(&i_string)});
+
+        let mut part1 = day09::Part1::new(&input);
+        let mut part2 = day09::Part2::new(&input);
+
+        println!(" part 1");
+        timed_run(||{part1.resolve();});
+        println!("    {}",part1);
+
+        println!(" part 2");
+        timed_run(||{part2.resolve();});
+        println!("    {}",part2);
+    }       Ok(())  
 }
