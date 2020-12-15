@@ -20,7 +20,7 @@ use std::vec::Vec;
 
 macro_rules! one_day {
     ($day:ident) => 
-   {//Day 01
+   {
         println!("{}",stringify!($day));
 
         let i_string = read_to_string(concat!(stringify!($day),".input"))?;
