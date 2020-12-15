@@ -1,9 +1,7 @@
 use super::*;
 use super::puzzles::Data;
 use std::vec::Vec;
-use itertools::Itertools;
 
-use itertools::MinMaxResult::{NoElements, OneElement, MinMax};
 
 #[derive(Clone)]
 pub struct Input{
@@ -45,7 +43,7 @@ impl<'a> std::fmt::Display for Part2<'a>{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.solution{
             Some(x) => {
-                write!(f, "Weakness is {}", x)
+                write!(f, "Solution is {}", x)
             },
             None => {
                 write!(f, "no solution found")
@@ -105,8 +103,11 @@ where 'a:'b
                         2 => sum = sum*2,
                         0 => {},
                         _ => panic!("squee")
-                    } 
-                    ;println!("{} ones in a row", one);one = 0;},
+                    }
+                    //println!("{} ones in a row", one);
+                    one = 0;
+                },
+
                 _ => println!("should this happen ?"),
             }
             last = i;

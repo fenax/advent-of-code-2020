@@ -1,9 +1,7 @@
 use super::*;
 use super::puzzles::Data;
 use std::vec::Vec;
-use regex::Regex;
-use itertools::Itertools;
-use itertools::MinMaxResult::{NoElements, OneElement, MinMax};
+
 
 #[derive(Clone)]
 #[derive(Debug)]
@@ -87,7 +85,7 @@ where 'a:'b
         let mut pc: usize = 0;
         let mut acc: i64 = 0;
 
-        while(passed[pc] == false){
+        while passed[pc] == false{
 //            println!("pc {} ac {} {:?}",pc, acc, code[pc]);
             let mut next_pc = pc+1;
             passed[pc] = true;
@@ -122,7 +120,7 @@ where 'a:'b
 
         let mut saved = None;
 
-        while(code[pc] != Instruction::End){
+        while code[pc] != Instruction::End{
             let mut skip = false;
             if passed[pc] {
                 println!("restaure");
@@ -153,12 +151,11 @@ where 'a:'b
             match inst
             {
                 Instruction::Acc(x) => {acc = acc + x},
-                Instruction::Nop(x) => {},
+                Instruction::Nop(_) => {},
                 Instruction::Jmp(x) => {next_pc = (pc as i64 + x) as usize;}
                 Instruction::End => {self.solution = Some(acc); return;}
             }
             pc = next_pc;
-            skip = false;
         }
         self.solution = Some(acc);
     }
