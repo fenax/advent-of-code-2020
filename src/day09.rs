@@ -3,7 +3,7 @@ use super::puzzles::Data;
 use std::vec::Vec;
 use itertools::Itertools;
 
-use itertools::MinMaxResult::{NoElements, OneElement, MinMax};
+use itertools::MinMaxResult::{MinMax};
 
 #[derive(Clone)]
 pub struct Input{

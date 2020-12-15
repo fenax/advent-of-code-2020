@@ -40,14 +40,14 @@ impl Instruction{
         }
     }*/
     fn with_new_data(&self, data:i64)->Self{
-        match(self){
+        match self{
             Instruction::N(_) => Instruction::N(data),
-            Instruction::E(d) => Instruction::E(data),
-            Instruction::S(d) => Instruction::S(data),
-            Instruction::W(d) => Instruction::W(data),
-            Instruction::F(d) => Instruction::F(data),
-            Instruction::R(d) => Instruction::R(data),
-            Instruction::L(d) => Instruction::L(data),      
+            Instruction::E(_) => Instruction::E(data),
+            Instruction::S(_) => Instruction::S(data),
+            Instruction::W(_) => Instruction::W(data),
+            Instruction::F(_) => Instruction::F(data),
+            Instruction::R(_) => Instruction::R(data),
+            Instruction::L(_) => Instruction::L(data),      
         }  
     }
 }
@@ -59,7 +59,7 @@ pub struct Input{
 impl puzzles::Data<Instruction> for Input{
     fn new(input:&str) -> Input{
         let input = parser::one_string_per_line(input);
-        let mut vector : Vec<Instruction> = input.iter().map(|x| {
+        let vector : Vec<Instruction> = input.iter().map(|x| {
                                     //let i: Vec<&str>= x.split(' ').collect();
                                     let mut c = x.chars();
                                     let com = c.next().unwrap();
@@ -149,8 +149,8 @@ fn move_by(instruction:&Instruction,(direction,(s,e)):(Instruction,(i64,i64)))->
         Instruction::S(d) => (direction, (s+d,e)),
         Instruction::W(d) => (direction, (s, e-d)),
         Instruction::E(d) => (direction, (s, e+d)),
-        Instruction::R(d) => (rotate_by(instruction, direction),(s,e)),
-        Instruction::L(d) => (rotate_by(instruction, direction),(s,e)),
+        Instruction::R(_d) => (rotate_by(instruction, direction),(s,e)),
+        Instruction::L(_d) => (rotate_by(instruction, direction),(s,e)),
         Instruction::F(d) => {
             let dir2 = direction.with_new_data(*d);
             move_by(&dir2, (direction,(s,e)))
@@ -171,7 +171,7 @@ where 'a:'b
         let result = 
         code.iter().fold((Instruction::E(0),(0,0)),|(dir,(s,e)),instr|move_by(instr,(dir,(s,e))));
 
-        self.solution = Some(result.1.0.abs() +result.1.1.abs());
+        self.solution = Some((result.1).0.abs() +(result.1).1.abs());
     }
 }
 
@@ -206,8 +206,8 @@ fn move_by_two(instruction:&Instruction,((wp_s, wp_e),(s,e)):((i64,i64),(i64,i64
         Instruction::S(d) => ((wp_s + d, wp_e), (s,e)),
         Instruction::W(d) => ((wp_s, wp_e - d), (s, e)),
         Instruction::E(d) => ((wp_s, wp_e + d), (s, e)),
-        Instruction::R(d) => (rotate_by_two(instruction, (wp_s, wp_e)),(s,e)),
-        Instruction::L(d) => (rotate_by_two(instruction, (wp_s, wp_e)),(s,e)),
+        Instruction::R(_) => (rotate_by_two(instruction, (wp_s, wp_e)),(s,e)),
+        Instruction::L(_) => (rotate_by_two(instruction, (wp_s, wp_e)),(s,e)),
         Instruction::F(d) => {
             ((wp_s,wp_e),(s+wp_s*d,e+wp_e*d))
         }
@@ -227,6 +227,6 @@ where 'a:'b
         let result = 
         code.iter().fold(((-1,10),(0,0)),|(dir,(s,e)),instr|move_by_two(instr,(dir,(s,e))));
 
-        self.solution = Some(result.1.0.abs() +result.1.1.abs());
+        self.solution = Some((result.1).0.abs() +(result.1).1.abs());
     }
 }
