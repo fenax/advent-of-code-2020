@@ -68,7 +68,16 @@ where 'a:'b
         Part1{data:input,solution:None}
     }
     fn resolve(&mut self){
-
+        let (stamp, list) = self.data.get_data();
+        let closest = list.iter().filter_map(|x|*x).map(|x|{
+            let s = stamp - (stamp%x);
+            if s == *stamp{
+                (s,x)
+            }else{
+                (s + x,x)
+            }
+        }).min().unwrap();
+        self.solution =  Some((closest.0 -stamp) * closest.1);
     }
 }
 
@@ -83,6 +92,36 @@ where 'a:'b
         Part2{data:input,solution:None}
     }
     fn resolve(&mut self){
-
+        let (_,list) = self.data.get_data();
+        let mut passage:Vec<(i64,usize)> = vec![(1,0);list.len()];
+        for (i,bus) in list.iter().enumerate(){
+            passage[i].1 = i;
+            if let Some(bus) = bus{
+                let mut j = i as i64-bus;
+                passage[i].0 *= bus;
+                while j>=0{
+                    passage[j as usize].0 *= bus;
+                    j -= bus;
+                }
+                let mut j = i as i64+bus;
+                while j<passage.len() as i64{
+                    passage[j as usize].0 *= bus;
+                    j += bus;
+                }
+            }
+        }
+        passage.sort();
+        let (largest_bus, lagrest_bus_pos) = passage.pop().unwrap();
+        passage.reverse();
+        let mut current_point = 0;
+        'outer: loop{
+            current_point += largest_bus;
+            let at_first = current_point - lagrest_bus_pos as i64;
+                if passage.iter().all(|(bus,pos)| (*pos as i64+at_first)%bus == 0){
+                    break 'outer;
+                }
+            
+        }
+        self.solution = Some(current_point - lagrest_bus_pos as i64);
     }
 }
