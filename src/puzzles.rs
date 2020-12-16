@@ -4,7 +4,7 @@ use std::fmt::*;
 
 pub trait Data<T>{
     fn new(input:&str) ->Self;
-    fn get_data(&self) -> &Vec<T>;
+    fn get_data(&self) -> &T;
  //   fn do_with_data (&self,f: &dyn Fn(&Self)){
  //       f(&self);
  //   }

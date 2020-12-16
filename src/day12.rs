@@ -56,7 +56,7 @@ pub struct Input{
     data: Vec<Instruction>
 }
 
-impl puzzles::Data<Instruction> for Input{
+impl puzzles::Data<Vec<Instruction>> for Input{
     fn new(input:&str) -> Input{
         let input = parser::one_string_per_line(input);
         let vector : Vec<Instruction> = input.iter().map(|x| {

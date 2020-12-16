@@ -7,7 +7,7 @@ pub struct Input{
     data: Vec<Vec<char>>
 }
 
-impl puzzles::Data<Vec<char>> for Input{
+impl puzzles::Data<Vec<Vec<char>>> for Input{
     fn new(input:&str) -> Input{
         Input{ data : parser::one_char_vec_per_line(input)}
     }

@@ -9,7 +9,7 @@ pub struct Input{
     data: Vec<(usize,Vec<(i64,usize)>)>
 }
 
-impl puzzles::Data<(usize,Vec<(i64,usize)>)> for Input{
+impl puzzles::Data<Vec<(usize,Vec<(i64,usize)>)>> for Input{
     fn new(input:&str) -> Input{
         let lines = parser::one_string_per_line(input);
         let mut names:Vec<(String,String)> = lines.iter().map(|l|{

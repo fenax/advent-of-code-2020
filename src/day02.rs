@@ -8,7 +8,7 @@ pub struct Input{
     data: Vec<(u8,u8,char,String)>
 }
 
-impl puzzles::Data<(u8,u8,char,String)> for Input{
+impl puzzles::Data<Vec<(u8,u8,char,String)>> for Input{
     fn new(input:&str) -> Input{
         let re = Regex::new(r"(\d+)-(\d+) ([a-z]).{2}([a-z]*)").unwrap();
         Input{ data : re.captures_iter(input).map(|x| (

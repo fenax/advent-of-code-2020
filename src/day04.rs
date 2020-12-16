@@ -8,7 +8,7 @@ pub struct Input{
     data: Vec<Vec<String>>
 }
 
-impl puzzles::Data<Vec<String>> for Input{
+impl puzzles::Data<Vec<Vec<String>>> for Input{
     fn new(input:&str) -> Input{
         Input{ data : parser::items_separated_by_whitespace_separated_by_blankline(input)}
     }

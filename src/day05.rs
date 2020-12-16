@@ -24,7 +24,7 @@ fn parse_boarding_pass(i:&String)->(u32,u32){
     (row,seat)
 }
 
-impl puzzles::Data<(u32,u32)> for Input{
+impl puzzles::Data<Vec<(u32,u32)>> for Input{
     fn new(input:&str) -> Input{
         let input = parser::one_string_per_line(input);
         let vector = input.iter().map(parse_boarding_pass).collect();

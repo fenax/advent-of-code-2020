@@ -5,7 +5,7 @@ pub struct Input{
     data: Vec<i64>
 }
 
-impl puzzles::Data<i64> for Input{
+impl puzzles::Data<Vec<i64>> for Input{
     fn new(input:&str) -> Input{
         let d = parser::one_int_per_line(&input);
         Input{ data : d}
