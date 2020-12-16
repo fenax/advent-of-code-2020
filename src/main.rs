@@ -7,6 +7,7 @@ mod day03;
 mod day04;
 mod day05;
 mod day06;
+mod day07;
 mod day08;
 mod day09;
 mod day10;
@@ -82,12 +83,12 @@ B:std::cmp::Ord + Copy,
 
 
 fn main() -> Result<(), std::io::Error> {
-    one_day!(day01);
+/*   one_day!(day01);
     one_day!(day02);
     one_day!(day03);
     one_day!(day04);
-    one_day!(day05);
-    one_day!(day06);
+    one_day!(day05);*/
+    one_day!(day07);
 
  /*   one_day!(day08);
     one_day!(day09);
