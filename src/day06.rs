@@ -1,7 +1,7 @@
 use super::*;
 use super::puzzles::Data;
 use std::vec::Vec;
-use regex::Regex;
+use std::collections::HashSet;
 
 #[derive(Clone)]
 pub struct Input{
@@ -30,7 +30,7 @@ impl<'a> std::fmt::Display for Part1<'a>{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.solution{
             Some(x) => {
-                write!(f, "{} valid passports", x)
+                write!(f, "{} yes replies", x)
             }
             None => {
                 write!(f, "no solution found")
@@ -42,7 +42,7 @@ impl<'a> std::fmt::Display for Part2<'a>{
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.solution{
             Some(x) => {
-                write!(f, "{} valid passports", x)
+                write!(f, "{} yes replies", x)
             }
             None => {
                 write!(f, "no solution found")
@@ -74,6 +74,13 @@ where 'a:'b
         Part2{data:input,solution:None}
     }
     fn resolve(&mut self){
+        self.solution = Some(self.data.get_data().iter().map(
+            |i|{
+                let mut iterator = i.iter();
+                let first = iterator.next().unwrap();
+                let rest : Vec<HashSet<char>> = iterator.map(|l|l.chars().collect()).collect();
+                first.chars().filter(|k| rest.iter().all(|s| s.contains(k))).count() as i64
+            }).sum());
 
     }
 }
