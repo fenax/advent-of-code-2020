@@ -17,7 +17,7 @@ pub enum Instruction{
 }
 
 impl Instruction{
-    fn get_data(&self)->i64{
+    /*fn get_data(&self)->i64{
         match self{
             Instruction::N(d) => *d,
             Instruction::E(d) => *d,
@@ -28,7 +28,7 @@ impl Instruction{
             Instruction::L(d) => *d,
         }
     }
-    /*fn set_data(& mut self,data:i64){
+    fn set_data(& mut self,data:i64){
         match self{
             Instruction::N(d) => *d = data,
             Instruction::E(d) => *d = data,

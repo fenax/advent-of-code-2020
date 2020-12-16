@@ -52,7 +52,7 @@ impl<'a> std::fmt::Display for Part2<'a>{
     }
 }
 
-
+#[allow(non_upper_case_globals)]
 const directions:[(isize,isize);8] = [(-1,-1),(-1,0),(-1,1),
                     ( 0,-1),       ( 0,1),
                     ( 1,-1),( 1,0),( 1,1)];
