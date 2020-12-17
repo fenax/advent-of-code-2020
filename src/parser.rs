@@ -1,3 +1,16 @@
+
+pub fn one_int_per(input:&str,p:char)->Vec<i64>{
+    input.split(p)
+                     .map(str::trim)
+                     .filter_map(|s|s.parse::<i64>().ok())
+                     .collect()
+}
+
+
+pub fn coma_separated_int(input:&str) -> Vec<i64>{
+    one_int_per(input, ',')
+}
+
 pub fn one_string_per_line(input:& str) -> Vec<String>{
     input.split('\n').map(str::trim)
                      .filter(|x| !x.is_empty())
@@ -5,10 +18,7 @@ pub fn one_string_per_line(input:& str) -> Vec<String>{
                      .collect()
 }
 pub fn one_int_per_line(input:& str)->Vec<i64>{
-    input.split('\n')
-                     .map(str::trim)
-                     .filter_map(|s|s.parse::<i64>().ok())
-                     .collect()
+    one_int_per(input, '\n')
 }
 pub fn one_char_vec_per_line(input:& str)->Vec<Vec<char>>{
     input.split('\n').map(str::trim).filter(|x| !x.is_empty())

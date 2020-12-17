@@ -15,6 +15,7 @@ mod day11;
 mod day12;
 mod day13;
 mod day14;
+mod day15;
 mod day17;
 mod puzzles;
 
@@ -37,7 +38,17 @@ macro_rules! one_day {
    {
         println!("{}",stringify!($day).bold());
 
-        let i_string = read_to_string(concat!(stringify!($day),".input"))?;
+        one_day_with_input!($day, read_to_string(concat!(stringify!($day),".input"))?);
+
+    };
+}
+
+macro_rules! one_day_with_input {
+    ($day:ident,$input:expr) => 
+   {
+        println!("{}",stringify!($day).bold());
+
+        let i_string = $input;
         print!("     {}","parsing".green().dimmed());
         let input =timed_run(||{$day::Input::new(&i_string)});
        
@@ -91,7 +102,8 @@ fn main() -> Result<(), std::io::Error> {
     one_day!(day03);
     one_day!(day04);
     one_day!(day05);*/
-   one_day!(day14);
+ //   one_day_with_input!(day15,"3,1,2");
+   one_day!(day15);
 
  /*   one_day!(day08);
     one_day!(day09);
