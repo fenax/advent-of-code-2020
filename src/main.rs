@@ -14,6 +14,8 @@ mod day10;
 mod day11;
 mod day12;
 mod day13;
+mod day14;
+mod day17;
 mod puzzles;
 
 use std::fs::read_to_string;
@@ -89,7 +91,7 @@ fn main() -> Result<(), std::io::Error> {
     one_day!(day03);
     one_day!(day04);
     one_day!(day05);*/
-    one_day!(day13);
+   one_day!(day14);
 
  /*   one_day!(day08);
     one_day!(day09);
